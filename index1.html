@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Log In</title>
+    <link rel="stylesheet" href="main.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- ANIMATE CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="logo">Log <span>In</span></h1>
+
+        <div class="contact-wrapper animated bounceInUp">
+            <div class="contact-form">
+                <h3>Login</h3>
+                <form id="loginForm">
+                    <p>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email">
+                        <span id="emailError" class="error"></span>
+                    </p>
+                    <p>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+                        <span id="passwordError" class="error"></span>
+                    </p>
+                    <p class="block">
+                        <button type="submit" id="submitButton" disabled>Masuk</button>
+                    </p>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h4>More Info</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Umban Sari</li>
+                    <li><i class="fas fa-phone"></i> (111) 111 111 111</li>
+                    <li><i class="fas fa-envelope-open-text"></i> Diaz23ti@mahasiswa.pcr.ac.id</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const submitButton = document.getElementById('submitButton');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        // Validasi Email
+        emailInput.addEventListener('input', () => {
+            const emailValue = emailInput.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailValue === '') {
+                emailError.textContent = 'Email is required.';
+                validateForm();
+                return;
+            }
+
+            if (!emailRegex.test(emailValue)) {
+                emailError.textContent = 'Invalid email format.';
+            } else {
+                emailError.textContent = '';
+            }
+
+            validateForm();
+        });
+
+        // Validasi Password
+        passwordInput.addEventListener('input', () => {
+            const passwordValue = passwordInput.value;
+
+            if (passwordValue === '') {
+                passwordError.textContent = 'Password is required.';
+            } else if (passwordValue.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters.';
+            } else {
+                passwordError.textContent = '';
+            }
+
+            validateForm();
+        });
+
+        // Validasi Form
+        function validateForm() {
+            const isEmailValid = emailError.textContent === '' && emailInput.value !== '';
+            const isPasswordValid = passwordError.textContent === '' && passwordInput.value !== '';
+
+            submitButton.disabled = !(isEmailValid && isPasswordValid);
+        }
+
+        // Redirect ke halaman Modul3_Biografiku.html jika validasi sukses
+        document.getElementById('loginForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (submitButton.disabled) return;
+
+            // Redirect ke halaman lain
+            window.location.href = 'index4.html';
+        });
+    </script>
+</body>
+</html>
